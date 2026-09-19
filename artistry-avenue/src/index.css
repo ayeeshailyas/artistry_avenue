@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #FBF6F1;
+  color: #2B1B1D;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  zoom: 90%
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: #5C1420;
+  color: #FBF6F1;
+}
+
+:focus-visible {
+  outline: 2px solid #5C1420;
+  outline-offset: 3px;
+}
+
+/* thin custom scrollbar for drawers */
+.thin-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #E4D6CC;
+  border-radius: 10px;
+}
+
+.hairline {
+  border-color: #E4D6CC;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Seal motif spinner used sparingly as a signature loading/empty-state device */
+.seal-ring {
+  border: 1px dashed #B08A4E;
+  border-radius: 9999px;
+}
+
+/* underline-grow link */
+.link-grow {
+  position: relative;
+  display: inline-block;
+}
+.link-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-grow:hover::after {
+  width: 100%;
+}
+
+button, a, input, textarea, select {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:active, a:active {
+  transform: translateY(1px);
+}
+
+input, textarea, select {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+}
