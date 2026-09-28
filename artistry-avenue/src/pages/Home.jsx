@@ -33,57 +33,39 @@ export default function Home() {
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-paper-dim pb-[5%]">
-        <div className="max-w-container mx-auto px-5 md:px-10 grid md:grid-cols-2 items-center min-h-[86vh]">
+      <section
+        className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-paper-dim bg-cover bg-center px-5 py-20 text-center md:px-10"
+        style={{ backgroundImage: "url('/main_img.png')" }}
+      >
+        <div className="absolute inset-0 z-0 bg-black/55" />
+        <div className="relative z-10 mx-auto max-w-3xl">
           <motion.div
             initial="hidden"
             animate="show"
-            className="order-2 md:order-1 py-16 md:py-0"
+            className="flex flex-col items-center"
           >
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-widest2 text-wine uppercase mb-5">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-widest2 text-white/90 uppercase mb-5">
               The Studio Edit
             </motion.p>
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="font-display text-4xl sm:text-5xl md:text-6xl text-plum leading-[1.08] text-balance mb-6"
+              className="font-display text-4xl sm:text-5xl md:text-6xl text-white leading-[1.08] text-balance mb-6 drop-shadow-lg"
             >
-              Paper, ink and a little bit of sparkle.
+              Bring a touch of magic to your everyday desk
             </motion.h1>
-            <motion.p variants={fadeUp} custom={2} className="text-stone text-base md:text-lg max-w-md mb-9 leading-relaxed">
-              Artistry Avenue makes stationery worth slowing down for hand-finished
-              journals, fine pens and desk objects that turn writing into a small ritual.
-            </motion.p>
-            <motion.div variants={fadeUp} custom={3} className="flex items-center gap-6">
+            
+            <motion.div variants={fadeUp} custom={3} className="flex flex-wrap justify-center items-center gap-2">
               <Link
                 to="/shop"
-                className="bg-plum text-paper text-sm tracking-wide px-8 py-4 rounded-pill hover:bg-wine transition-colors duration-300 ease-silk"
+                className="bg-wine-light text-paper text-sm tracking-wide px-8 py-4 rounded-pill hover:bg-wine transition-colors duration-300 ease-silk"
               >
                 Shop the Edit
               </Link>
-              <Link to="/about" className="text-sm text-plum link-grow flex items-center gap-1.5">
+              <Link to="/about" className="bg-wine-light text-sm text-white px-8 py-4 rounded-pill hover:bg-wine transition-colors duration-300 ease-silk ">
                 Our story 
               </Link>
             </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="order-1 md:order-2 relative h-[50vh] md:h-[80vh]"
-          >
-            <img
-              src="/stationery/diary/blueberry_notebook_flatlay_1.webp"
-              alt="Blueberry notebook from the Artistry Avenue stationery collection"
-              className="w-full h-full object-cover rounded pt-9 "
-            />
-            <div className="absolute -bottom-6 -left-6 hidden md:flex w-28 h-28 rounded-full bg-paper items-center justify-center shadow-lift">
-              <div className="w-20 h-20 seal-ring rounded-full flex flex-col items-center justify-center text-center">
-                <span className="font-display text-wine text-sm leading-none">Hand</span>
-                <span className="font-display text-wine text-sm leading-none">Finished</span>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>

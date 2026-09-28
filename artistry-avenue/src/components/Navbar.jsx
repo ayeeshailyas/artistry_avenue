@@ -57,7 +57,9 @@ export default function Navbar() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ease-silk ${
-        scrolled
+        mobileOpen
+          ? "bg-paper border-b border-hairline"
+          : scrolled
           ? "bg-paper/80 backdrop-blur-md border-b border-hairline"
           : "bg-transparent border-b border-transparent"
       }`}
@@ -172,14 +174,15 @@ export default function Navbar() {
       >
         <div
           onClick={() => setMobileOpen(false)}
-          className={`absolute inset-0 bg-plum/40 transition-opacity duration-300 ${
+          className={`fixed inset-0 z-0 bg-plum/40 transition-opacity duration-300 ${
             mobileOpen ? "opacity-100" : "opacity-0"
           }`}
         />
         <div
-          className={`absolute left-0 top-0 h-full w-[78%] max-w-xs bg-paper shadow-lift transition-transform duration-400 ease-silk ${
+          className={`fixed left-0 top-0 z-10 h-full w-[78%] max-w-xs shadow-lift transition-transform duration-400 ease-silk ${
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           }`}
+          style={{ backgroundColor: "#FBF6F1", opacity: 1 }}
         >
           <div className="flex items-center justify-between px-6 h-20 border-b border-hairline">
             <span className="font-display text-lg text-plum">Menu</span>
