@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 import { useToast } from "../context/ToastContext";
 import { formatPrice } from "../lib/format";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, imageAspect = "aspect-[4/5]", imageLoading = "lazy" }) {
   const { has, toggle } = useWishlist();
   const { addItem } = useCart();
   const { showToast } = useToast();
@@ -31,11 +31,11 @@ export default function ProductCard({ product }) {
 
   return (
     <Link to={`/product/${product.id}`} className="group block">
-      <div className="relative overflow-hidden rounded-soft bg-paper-dim aspect-[4/5]">
+      <div className={`relative overflow-hidden rounded-soft bg-paper-dim ${imageAspect}`}>
         <img
           src={product.images[0]}
           alt={product.name}
-          loading="lazy"
+          loading={imageLoading}
           className="w-full h-full object-cover transition-transform duration-700 ease-silk group-hover:scale-[1.06]"
         />
         {product.badge && (

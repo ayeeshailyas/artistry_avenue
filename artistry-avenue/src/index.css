@@ -82,6 +82,17 @@ body {
   width: 100%;
 }
 
+/* The repeated product set makes this a seamless, uninterrupted marquee. */
+.obsessions-marquee {
+  animation: obsessions-marquee 100s linear infinite;
+}
+
+@keyframes obsessions-marquee {
+  to {
+    transform: translateX(calc(-50% - 10px));
+  }
+}
+
 button, a, input, textarea, select {
   transition-property: color, background-color, border-color, box-shadow, transform, opacity;
   transition-duration: 300ms;

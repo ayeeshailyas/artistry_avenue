@@ -1,8 +1,26 @@
 import { Link } from "react-router-dom";
-import { Camera, Globe, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "../context/ToastContext";
 import { whatsAppLink } from "./WhatsAppButton";
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <path d="M19.5 3h-15A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3ZM8.4 18H6V10.3h2.4V18ZM7.2 9.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8ZM18 18h-2.4v-3.7c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V18h-2.4v-7.7h2.3v1.1h.1c.3-.6 1.1-1.3 2.3-1.3 2.5 0 2.9 1.6 2.9 3.8V18Z" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -52,21 +70,18 @@ export default function Footer() {
         <div>
           <h4 className="text-xs tracking-widest2 text-plum uppercase mb-4">Stay in touch</h4>
           <p className="text-sm text-stone mb-4">Early access to new collections & studio notes.</p>
-          <form onSubmit={handleSubscribe} className="flex items-center border-b border-plum/40 pb-2 mb-5">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email address"
-              className="bg-transparent outline-none text-sm text-plum placeholder:text-stone flex-1"
-            />
-            <button type="submit" className="text-sm text-wine hover:text-wine-dark">Join</button>
-          </form>
+
           <div className="flex items-center gap-4 text-plum">
-            <a href="#" aria-label="Instagram" className="hover:text-wine"><Camera size={17} /></a>
-            <a href="#" aria-label="Facebook" className="hover:text-wine"><Globe size={17} /></a>
-            <a href="mailto:hello@artistryavenue.com" aria-label="Email" className="hover:text-wine"><Mail size={17} /></a>
+            {/* Replace these placeholder URLs with your own social profile links. */}
+            <a href="https://www.instagram.com/artistry_avenue16?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" aria-label="Instagram" className="hover:text-wine">
+              <InstagramIcon />
+            </a>
+            <a href="#" aria-label="LinkedIn" className="hover:text-wine">
+              <LinkedInIcon />
+            </a>
+            <a href="mailto:hello@artistryavenue.com" aria-label="Email" className="hover:text-wine">
+              <Mail size={18} />
+            </a>
           </div>
         </div>
       </div>

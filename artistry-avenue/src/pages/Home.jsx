@@ -17,14 +17,18 @@ const fadeUp = {
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
-  const [bestsellers, setBestsellers] = useState([]);
+  const [carouselProducts, setCarouselProducts] = useState([]);
 
   useEffect(() => {
     api.getCategories().then(({ categories }) => setCategories(categories));
     api.getProducts().then(({ products }) =>
-      setBestsellers(products.filter((p) => p.badge === "Bestseller").slice(0, 4))
+      setCarouselProducts(products.filter((p) => p.images?.[0]))
     );
   }, []);
+
+  const loopProducts = carouselProducts.length > 1
+    ? [...carouselProducts, ...carouselProducts]
+    : carouselProducts;
 
   return (
     <PageTransition>
@@ -47,7 +51,7 @@ export default function Home() {
               Paper, ink and a little bit of sparkle.
             </motion.h1>
             <motion.p variants={fadeUp} custom={2} className="text-stone text-base md:text-lg max-w-md mb-9 leading-relaxed">
-              Artistry Avenue makes stationery worth slowing down for — hand-finished
+              Artistry Avenue makes stationery worth slowing down for hand-finished
               journals, fine pens and desk objects that turn writing into a small ritual.
             </motion.p>
             <motion.div variants={fadeUp} custom={3} className="flex items-center gap-6">
@@ -127,10 +131,17 @@ export default function Home() {
               Shop all <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {bestsellers.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
+          <div className="overflow-hidden">
+            <div className="obsessions-marquee flex gap-5 w-max">
+              {loopProducts.map((p, index) => (
+                <div
+                  key={`${p.id}-${index}`}
+                  className="w-[calc((100vw-3.75rem)/2)] shrink-0 md:w-[calc((min(100vw,1400px)-5rem-3.75rem)/4)]"
+                >
+                  <ProductCard product={p} imageAspect="aspect-[3/4]" imageLoading="eager" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

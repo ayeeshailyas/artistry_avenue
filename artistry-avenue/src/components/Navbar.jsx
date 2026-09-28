@@ -96,9 +96,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-4 md:gap-5 text-plum">
-          <button aria-label="Search" onClick={() => setSearchOpen((s) => !s)} className="hover:text-wine transition-colors">
-            <Search size={19} />
-          </button>
+         
           <Link to="/wishlist" aria-label="Wishlist" className="relative hover:text-wine transition-colors">
             <Heart size={19} />
             {wishCount > 0 && (
