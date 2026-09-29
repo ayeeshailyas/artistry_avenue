@@ -32,7 +32,7 @@ npm install
 npm run dev
 ```
 
-The storefront runs at `http://localhost:5173`; the API defaults to `http://localhost:4000` and exposes a health check at `/api/health`. The frontend API URL can be set with `VITE_API_URL` (default: `http://localhost:4000/api`). Set `VITE_WHATSAPP_NUMBER` in the local or deployment environment to configure WhatsApp order messages; it is not committed to the repository.
+The storefront runs at `http://localhost:5173`; the API defaults to `http://localhost:4000` locally and exposes a health check at `/api/health`. The frontend API URL can be set with `VITE_API_URL`; if unset, it uses the Railway API at `https://artistryavenue-production.up.railway.app/api`. Set `VITE_WHATSAPP_NUMBER` in the local or deployment environment to configure WhatsApp order messages; it is not committed to the repository.
 
 The server accepts `PORT`, `CLIENT_ORIGIN`, `JWT_SECRET`, and `DB_PATH`. `DB_PATH` defaults to `artistry-avenue-server/data/artistry_avenue.db`. Set a strong, private `JWT_SECRET` and configure `CLIENT_ORIGIN` for the deployed storefront before deployment. The frontend includes a Vercel rewrite for client-side routes; deploy the API separately and point `VITE_API_URL` at it.
 
