@@ -14,14 +14,6 @@ function InstagramIcon() {
   );
 }
 
-function LinkedInIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-      <path d="M19.5 3h-15A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3ZM8.4 18H6V10.3h2.4V18ZM7.2 9.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8ZM18 18h-2.4v-3.7c0-.9 0-2.1-1.3-2.1s-1.5 1-1.5 2V18h-2.4v-7.7h2.3v1.1h.1c.3-.6 1.1-1.3 2.3-1.3 2.5 0 2.9 1.6 2.9 3.8V18Z" />
-    </svg>
-  );
-}
-
 export default function Footer() {
   const [email, setEmail] = useState("");
   const { showToast } = useToast();
@@ -71,14 +63,15 @@ export default function Footer() {
           <h4 className="text-xs tracking-widest2 text-plum uppercase mb-4">Stay in touch</h4>
           <p className="text-sm text-stone mb-4">Early access to new collections & studio notes.</p>
 
-          <div className="flex items-center gap-4 text-plum">
-            {/* Replace these placeholder URLs with your own social profile links. */}
-            <a href="https://www.instagram.com/artistry_avenue16?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" aria-label="Instagram" className="hover:text-wine">
+          <div className="flex flex-col items-start gap-3 text-sm text-plum">
+            <a href="https://www.instagram.com/artistry_avenue16/" target="_blank" rel="noreferrer" aria-label="Instagram: artistry_avenue16" className="inline-flex items-center gap-2 hover:text-wine">
               <InstagramIcon />
+              <span>artistry_avenue16</span>
             </a>
-            
-            <a href="artistry.ave16@gmail.com" aria-label="Email" className="hover:text-wine">
+
+            <a href="mailto:artistry.ave16@gmail.com" aria-label="Email us: artistry.ave16@gmail.com" className="inline-flex flex-wrap items-center gap-2 hover:text-wine">
               <Mail size={18} />
+              <span>artistry.ave16@gmail.com</span>
             </a>
           </div>
         </div>
