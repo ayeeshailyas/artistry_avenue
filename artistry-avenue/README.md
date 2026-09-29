@@ -1,16 +1,32 @@
-# React + Vite
+# Artistry Avenue storefront
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19 storefront for the Artistry Avenue stationery shop. It uses Vite, React Router, Tailwind CSS, Framer Motion, and the companion Express API in `../artistry-avenue-server` for catalog, account, wishlist, and order data.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+The development server is available at `http://localhost:5173`. Start the API separately from `../artistry-avenue-server` (see the repository root README). Available scripts are `dev`, `build`, `preview`, and `lint`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Environment
 
-## Expanding the Oxlint configuration
+Create a `.env` file in this directory when overriding defaults:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```text
+VITE_API_URL=http://localhost:4000/api
+VITE_WHATSAPP_NUMBER=
+```
+
+`VITE_API_URL` defaults to the local API URL shown above. Set `VITE_WHATSAPP_NUMBER` to the business number in international format with digits only (for example, Pakistan's `03...` number should be entered starting with `92`, without the leading `0`). Configure it in Vercel's Project Settings under Environment Variables for production and redeploy. It is included in the built storefront because WhatsApp links are generated in the browser, so it is not suitable for keeping the number secret from site visitors. Do not put server secrets in frontend environment variables.
+
+## Source and assets
+
+- `src/pages/` contains the storefront routes; `src/components/` contains shared UI.
+- `src/context/` manages auth, cart, wishlist, and toast state.
+- `src/lib/api.js` is the API client; `src/lib/format.js` formats prices in Pakistani Rupees.
+- `public/stationery/` holds locally served product photography. Brand imagery is also in `public/`.
+
+Checkout saves the order through the API before offering WhatsApp messaging. The supported payment methods are WhatsApp and Cash on Delivery; this frontend does not process online payments.

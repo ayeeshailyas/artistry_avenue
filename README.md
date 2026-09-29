@@ -1,83 +1,57 @@
-# Artistry Avenue — Sparkle Stationery
+# Artistry Avenue
 
-A full-stack e-commerce site for the Artistry Avenue stationery brand: a
-React frontend and a real Node.js/Express + SQLite backend. No mock data,
-no payment gateway — checkout is Cash on Delivery or WhatsApp, both backed
-by real orders saved in a database.
+Artistry Avenue is a stationery e-commerce site with a React storefront and a Node.js/Express API backed by SQLite. Customers can browse the locally hosted product catalog, create an account, save a wishlist, and place orders using Cash on Delivery or WhatsApp.
 
-## Structure
+## Project layout
 
+```text
+artistry-avenue/          React 19 storefront (Vite, React Router, Tailwind CSS)
+  public/stationery/       Product photography served by the frontend
+  src/                     Pages, components, contexts, and API client
+artistry-avenue-server/   Express 5 API and SQLite database
+  src/db/                  Schema and catalog seed data
+  src/routes/              Authentication, products, wishlist, and orders
 ```
-artistry-avenue/          → React frontend (Vite, Tailwind, Framer Motion)
-artistry-avenue-server/   → Node.js/Express backend (SQLite, JWT auth)
-```
 
-## Quick start
+## Run locally
 
-You need two terminals — one for the backend, one for the frontend.
-
-### 1. Backend
+Use Node.js and npm. Start the API and storefront in separate terminals.
 
 ```bash
+# Terminal 1: API
 cd artistry-avenue-server
 npm install
-cp .env.example .env       # edit JWT_SECRET before going live
-npm run seed                # creates the SQLite database and loads products
-npm run dev                  # starts the API on http://localhost:4000
+npm run seed
+npm run dev
 ```
-
-### 2. Frontend
 
 ```bash
+# Terminal 2: storefront
 cd artistry-avenue
 npm install
-cp .env.example .env        # points at the backend + your WhatsApp number
-npm run dev                  # starts the site on http://localhost:5173
+npm run dev
 ```
 
-Open http://localhost:5173 — the site talks to the real backend for
-products, accounts, wishlist and orders.
+The storefront runs at `http://localhost:5173`; the API defaults to `http://localhost:4000` and exposes a health check at `/api/health`. The frontend API URL can be set with `VITE_API_URL` (default: `http://localhost:4000/api`). Set `VITE_WHATSAPP_NUMBER` in the local or deployment environment to configure WhatsApp order messages; it is not committed to the repository.
 
-## Before you launch
+The server accepts `PORT`, `CLIENT_ORIGIN`, `JWT_SECRET`, and `DB_PATH`. `DB_PATH` defaults to `artistry-avenue-server/data/artistry_avenue.db`. Set a strong, private `JWT_SECRET` and configure `CLIENT_ORIGIN` for the deployed storefront before deployment. The frontend includes a Vercel rewrite for client-side routes; deploy the API separately and point `VITE_API_URL` at it.
 
-- **`artistry-avenue-server/.env`** — set a strong random `JWT_SECRET`
-  (e.g. `openssl rand -hex 32`), and update `CLIENT_ORIGIN` to your real
-  frontend URL.
-- **`artistry-avenue/.env`** — set `VITE_API_URL` to your deployed backend,
-  and `VITE_WHATSAPP_NUMBER` to the studio's real WhatsApp Business number
-  (international format, digits only, e.g. `923001234567`).
-- **Product photos** — the catalog currently uses stock photography from
-  Unsplash as placeholders. Swap the `images` arrays in
-  `artistry-avenue-server/src/db/seed.js` for your own product photos, then
-  re-run `npm run seed`.
-- **Logo & socials** — the logo lives at `artistry-avenue/public/logo.png`.
-  Footer social links are placeholders (`#`) — point them at your real
-  Instagram/Facebook pages.
+## Store behavior
 
-## How ordering works
+- Product and category data are served by the API. The catalog is defined in `artistry-avenue-server/src/db/seed.js`; `npm run seed` inserts or replaces those records.
+- Product images are local files under `artistry-avenue/public/stationery/`, with storefront assets such as the hero and logo under `public/`.
+- Accounts use bcrypt password hashes and JWT tokens. The browser stores the session token in local storage.
+- Wishlists and orders are stored in SQLite per account. A guest can check out; authenticated orders are attached to the account.
+- The cart is stored in browser local storage, with separate cart keys for guests and signed-in users.
+- Checkout offers WhatsApp or Cash on Delivery. In both cases the order is created in the database first and stock is checked and reserved at order creation. WhatsApp then opens a prefilled message; it does not process payment.
+- Currency display is Pakistani Rupees and is formatted in `artistry-avenue/src/lib/format.js`.
 
-There's no payment gateway. At checkout, a customer chooses:
+## Main routes
 
-- **Order via WhatsApp** (default/recommended) — the order is saved to the
-  database first (so you have a record), then WhatsApp opens in a new tab
-  with the order pre-filled as a message. The customer just hits send, and
-  you confirm payment/availability with them directly.
-- **Cash on Delivery** — the order is saved with `payment_method: "cod"`
-  and stock is reserved immediately. Payment happens in person on delivery.
+The storefront includes home, shop/category, product detail, cart, wishlist, checkout, order confirmation, login, signup, account, about, and contact pages. The API provides `/api/auth`, `/api/products`, `/api/categories`, `/api/wishlist`, `/api/orders`, and `/api/health` endpoints. See `artistry-avenue/src/lib/api.js` and `artistry-avenue-server/src/routes/` for the current request and response details.
 
-Every order is stored in the `orders` / `order_items` tables regardless of
-which path is chosen, and appears in the signed-in customer's **Account →
-Order History**.
+## Deployment notes
 
-## Tech notes
-
-- **Auth**: real bcrypt password hashing + JWT sessions (7-day expiry),
-  not stored in plaintext or localStorage.
-- **Database**: SQLite via `better-sqlite3` — a single file at
-  `artistry-avenue-server/data/artistry_avenue.db`. Fine for a small-to-
-  medium store; swap for Postgres/MySQL later if you outgrow it (the SQL
-  is close to standard and lives entirely in `src/db` and `src/routes`).
-- **Wishlist**: persisted server-side per account, not per browser.
-- **Cart**: kept client-side (localStorage) until checkout, which is
-  standard practice for e-commerce — it becomes a real, saved order only
-  once the customer checks out.
+- Configure the frontend's `VITE_API_URL` and `VITE_WHATSAPP_NUMBER` in its deployment environment.
+- Configure the server's `CLIENT_ORIGIN` and `JWT_SECRET`; keep secrets out of source control.
+- Persist the SQLite data directory when deploying the server. The Vercel configuration in the frontend handles SPA route rewrites only; it does not deploy the API.

@@ -1,9 +1,10 @@
 // Set VITE_WHATSAPP_NUMBER in .env to the studio's real WhatsApp Business
-// number, in international format with no leading + or spaces (e.g. 923001234567).
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "923000000000";
+// number, in international format with no leading + or spaces.
+const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER || "").replace(/\D/g, "");
 
 export function whatsAppLink(message) {
   const text = encodeURIComponent(message);
+  if (!WHATSAPP_NUMBER) return `https://wa.me/?text=${text}`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
 }
 

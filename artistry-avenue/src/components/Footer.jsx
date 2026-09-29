@@ -76,10 +76,8 @@ export default function Footer() {
             <a href="https://www.instagram.com/artistry_avenue16?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" aria-label="Instagram" className="hover:text-wine">
               <InstagramIcon />
             </a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-wine">
-              <LinkedInIcon />
-            </a>
-            <a href="mailto:hello@artistryavenue.com" aria-label="Email" className="hover:text-wine">
+            
+            <a href="artistry.ave16@gmail.com" aria-label="Email" className="hover:text-wine">
               <Mail size={18} />
             </a>
           </div>
