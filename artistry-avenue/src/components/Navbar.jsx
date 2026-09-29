@@ -45,7 +45,8 @@ export default function Navbar() {
     }
     const timeout = setTimeout(async () => {
       try {
-        const { products } = await api.getProducts({ search: query.trim() });
+        const data = await api.getProducts({ search: query.trim() });
+        const products = data.products || data;
         setResults(products.slice(0, 5));
       } catch {
         setResults([]);

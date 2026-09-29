@@ -1,6 +1,7 @@
-const API_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://artistryavenue-production.up.railway.app/api";
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:4000/api"
+  : import.meta.env.VITE_API_URL?.trim() ||
+    "https://artistryavenue-production.up.railway.app/api";
 const TOKEN_KEY = "aa_token";
 
 export function getToken() {

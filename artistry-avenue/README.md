@@ -20,7 +20,7 @@ VITE_API_URL=http://localhost:4000/api
 VITE_WHATSAPP_NUMBER=
 ```
 
-`VITE_API_URL` defaults to the Railway production API when unset; set it to `http://localhost:4000/api` for local development. Set `VITE_WHATSAPP_NUMBER` to the business number in international format with digits only (for example, Pakistan's `03...` number should be entered starting with `92`, without the leading `0`). Configure it in Vercel's Project Settings under Environment Variables for production and redeploy. It is included in the built storefront because WhatsApp links are generated in the browser, so it is not suitable for keeping the number secret from site visitors. Do not put server secrets in frontend environment variables.
+Vite development mode uses `http://localhost:4000/api`. Production uses `VITE_API_URL` when set and otherwise defaults to the Railway API. Set `VITE_WHATSAPP_NUMBER` to the business number in international format with digits only (for example, Pakistan's `03...` number should be entered starting with `92`, without the leading `0`). Configure it in Vercel's Project Settings under Environment Variables for production and redeploy. It is included in the built storefront because WhatsApp links are generated in the browser, so it is not suitable for keeping the number secret from site visitors. Do not put server secrets in frontend environment variables.
 
 ## Source and assets
 

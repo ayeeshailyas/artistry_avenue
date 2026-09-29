@@ -20,10 +20,22 @@ export default function Home() {
   const [carouselProducts, setCarouselProducts] = useState([]);
 
   useEffect(() => {
-    api.getCategories().then(({ categories }) => setCategories(categories));
-    api.getProducts().then(({ products }) =>
-      setCarouselProducts(products.filter((p) => p.images?.[0]))
-    );
+    async function loadHomeData() {
+      try {
+        const [categoryData, productData] = await Promise.all([
+          api.getCategories(),
+          api.getProducts(),
+        ]);
+        setCategories(categoryData.categories || []);
+        const products = productData.products || productData;
+        setCarouselProducts(products.filter((product) => product.images?.[0]));
+      } catch {
+        setCategories([]);
+        setCarouselProducts([]);
+      }
+    }
+
+    loadHomeData();
   }, []);
 
   const loopProducts = carouselProducts.length > 1

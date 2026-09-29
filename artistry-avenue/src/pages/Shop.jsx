@@ -27,14 +27,23 @@ export default function Shop() {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    const params = {};
-    if (effectiveCategory !== "all") params.category = effectiveCategory;
-    if (sort !== "featured") params.sort = sort;
-    api
-      .getProducts(params)
-      .then(({ products }) => setList(products))
-      .finally(() => setLoading(false));
+    async function loadProducts() {
+      setLoading(true);
+      const params = {};
+      if (effectiveCategory !== "all") params.category = effectiveCategory;
+      if (sort !== "featured") params.sort = sort;
+
+      try {
+        const data = await api.getProducts(params);
+        setList(data.products || data);
+      } catch {
+        setList([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts();
   }, [effectiveCategory, sort]);
 
   const currentLabel =

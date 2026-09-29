@@ -74,6 +74,6 @@ JWT_SECRET=<strong random secret>
 DB_PATH=./data/artistry_avenue.db
 ```
 
-The frontend API URL is configurable with `VITE_API_URL` and falls back to `https://artistryavenue-production.up.railway.app/api`. The server defaults to port 4000 and a database file under `artistry-avenue-server/data/`. Use a private strong JWT secret and set the deployed storefront origin in `CLIENT_ORIGIN`. The frontend's `vercel.json` only provides SPA route rewrites; it does not host the API.
+The frontend uses `http://localhost:4000/api` directly in Vite development mode. Production uses `VITE_API_URL` when set and otherwise falls back to `https://artistryavenue-production.up.railway.app/api`. The server defaults to port 4000 and a database file under `artistry-avenue-server/data/`. Use a private strong JWT secret and set the deployed storefront origin in `CLIENT_ORIGIN`. The frontend's `vercel.json` only provides SPA route rewrites; it does not host the API.
 
 Run the backend with `cd artistry-avenue-server && npm install && npm run seed && npm run dev`. Run the storefront separately with `cd artistry-avenue && npm install && npm run dev`. Edit catalog entries in `src/db/seed.js` and rerun the seed command to apply them.
