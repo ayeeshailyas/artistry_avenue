@@ -52,6 +52,7 @@ The storefront includes home, shop/category, product detail, cart, wishlist, che
 
 ## Deployment notes
 
+- Both packages require Node.js `>=24.22.1 <25`, the patched Node 24 LTS line. Railway and Vercel should use the package `engines` constraint when they build.
 - Configure the frontend's `VITE_API_URL` and `VITE_WHATSAPP_NUMBER` in its deployment environment.
 - Configure the server's `CLIENT_ORIGIN` and `JWT_SECRET`; keep secrets out of source control.
 - Persist the SQLite data directory when deploying the server. The Vercel configuration in the frontend handles SPA route rewrites only; it does not deploy the API.
